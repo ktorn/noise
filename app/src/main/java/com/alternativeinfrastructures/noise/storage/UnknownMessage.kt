@@ -255,7 +255,20 @@ open class UnknownMessage : BaseRXModel {
 
     // Raw data, used only for debugging purposes
     override fun toString(): String {
-        return Base64.encodeToString(this.payload.blob, Base64.NO_WRAP)
+        var msg: String
+
+        try {
+            msg = "id: $id\n"
+            msg += "version: $version\n"
+            msg += "zeroBits: $zeroBits\n"
+            msg += "date: $date\n"
+            msg += "counter: $counter\n"
+            msg += "publicType: $publicType\n"
+            msg += "payload: " + String(payload.blob) + "\n"
+        } catch (e: Exception) {
+            msg = Base64.encodeToString(payload.blob, Base64.NO_WRAP)
+        }
+        return msg
     }
 
     companion object {
